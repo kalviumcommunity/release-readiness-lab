@@ -6,5 +6,8 @@ metadata:
 data:
   LOG_LEVEL: "info"
   PORT: "5000"
-  # Note: Developers forgot to include DATABASE_URL and REDIS_URL here.
-  # This causes the application to default to volatile, in-memory SQLite and local cache.
+  # Required production backing services must be supplied by a Secret/External config source.
+  # The current release candidate does not define DATABASE_URL or REDIS_URL in the target manifest.
+  # Without these values, the application falls back to a volatile local SQLite cache and local in-memory Redis-style fallback.
+  DATABASE_URL: "postgresql://checkout:REPLACE_ME@postgres.checkout-system.svc.cluster.local:5432/checkout"
+  REDIS_URL: "redis://redis.checkout-system.svc.cluster.local:6379/0"
