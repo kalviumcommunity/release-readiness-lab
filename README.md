@@ -2,7 +2,7 @@
 
 Welcome to the Release Engineering / SRE Team!
 
-This repository contains the code and configuration for the **Checkout API (v2.4 Release Candidate)**. 
+This repository contains the code and configuration for the **Checkout API (v2.4 Release Candidate)**.
 
 The development team has completed feature development, verified the application code, and successfully run the CI pipeline. They believe it is ready for immediate deployment to production and have handed it over to you.
 
@@ -15,6 +15,7 @@ Your task is to conduct a thorough release audit, gather execution evidence, ana
 ## Repository Structure
 
 The workspace is organized as follows:
+
 - [app/](./app/) - Contains the Flask application, Gunicorn configuration, dependencies, Dockerfile, and unit tests.
 - [k8s/](./k8s/) - Contains the Kubernetes deployment, service, and configuration manifests.
 - [scripts/](./scripts/) - Contains helper deployment scripts.
@@ -36,13 +37,15 @@ You must compile a complete **Release Readiness Pack** inside the `release-readi
 7. **Readiness Report & Go/No-Go Decision** (`readiness-report.md`): Synthesize all findings into a final report. Make an explicit, evidence-backed **Go** or **No-Go** recommendation with operational justification.
 
 ### How to Evaluate
-Your submission will be evaluated on the completeness, professional formatting, and analytical quality of the artifacts in your `release-readiness-pack/` folder. 
+
+Your submission will be evaluated on the completeness, professional formatting, and analytical quality of the artifacts in your `release-readiness-pack/` folder.
 
 ---
 
 ## Local Setup & Inspection
 
 ### Running Python App Locally
+
 ```bash
 cd app
 python3 -m venv venv
@@ -52,13 +55,16 @@ python app.py
 ```
 
 ### Running Tests Locally
+
 ```bash
 cd app
 pytest test_app.py
 ```
 
 ### Simulating Kubernetes Deployment
+
 To test manifests locally in Minikube, Kind, or Docker Desktop:
+
 ```bash
 chmod +x scripts/deploy.sh
 ./scripts/deploy.sh
