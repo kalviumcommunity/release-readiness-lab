@@ -1,9 +1,11 @@
 # Validation Results
 
 ## Scope
+
 This validation pack records the evidence for the `v2.4` release candidate of the Checkout API.
 
 ## CI / Build Evidence
+
 The repository CI workflow is defined in `.github/workflows/ci.yml` and performs the following checks:
 
 - Python 3.11 setup
@@ -38,6 +40,7 @@ py_compile OK
 ```
 
 ## Runtime Validation Evidence
+
 A live local runtime exercise was performed against Flask endpoints.
 
 Observed output from the app startup and endpoint requests:

@@ -2,12 +2,12 @@
 
 ## Ownership Model
 
-| Role | Owner | Responsibilities |
-|------|-------|-----------------|
-| Release Owner | Dev Team Lead | Approves candidate, confirms release notes, signs readiness gate |
-| SRE / Operational Lead | Platform Engineering | Validates rollout execution, monitors health, manages incident escalation |
-| On-Call Support | Production Support | Takes first response during the deployment window |
-| Escalation Path | On-call -> SRE Lead -> Release Owner | Coordinates triage and rollback authority |
+| Role                   | Owner                                | Responsibilities                                                          |
+| ---------------------- | ------------------------------------ | ------------------------------------------------------------------------- |
+| Release Owner          | Dev Team Lead                        | Approves candidate, confirms release notes, signs readiness gate          |
+| SRE / Operational Lead | Platform Engineering                 | Validates rollout execution, monitors health, manages incident escalation |
+| On-Call Support        | Production Support                   | Takes first response during the deployment window                         |
+| Escalation Path        | On-call -> SRE Lead -> Release Owner | Coordinates triage and rollback authority                                 |
 
 ## Required Governance Sign-Off
 
