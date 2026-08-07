@@ -13,7 +13,7 @@ graph TD
     Pod1 --> DB[(PostgreSQL Database)]
     Pod1 --> Cache[(Redis Cache)]
 ```
-
+//requirements
 ## System Requirements
 
 - **Python Version**: 3.11
