@@ -27,6 +27,8 @@ spec:
         envFrom:
         - configMapRef:
             name: checkout-api-config
+        - secretRef:
+            name: checkout-api-secrets
         resources:
           requests:
             memory: "128Mi"

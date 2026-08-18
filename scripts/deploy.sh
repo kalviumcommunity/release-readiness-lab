@@ -13,6 +13,7 @@ kubectl get namespace checkout-system || kubectl create namespace checkout-syste
 # Apply manifests
 echo "Applying Kubernetes manifests..."
 kubectl apply -f k8s/configmap.yaml
+kubectl apply -f k8s/secret.yaml
 kubectl apply -f k8s/deployment.yaml
 kubectl apply -f k8s/service.yaml
 
