@@ -16,12 +16,21 @@ def test_index(client):
     assert json_data["version"] == "v2.4"
     assert json_data["message"] == "Release Readiness Demo"
 
-def test_health(client):
-    """Test the health check endpoint returns 200 and healthy checks"""
+def test_health_with_required_config(client, monkeypatch):
+    monkeypatch.setenv("DATABASE_URL", "postgresql://example.invalid/checkout")
+    monkeypatch.setenv("REDIS_URL", "redis://example.invalid:6379/0")
     rv = client.get("/health")
     assert rv.status_code == 200
     json_data = rv.get_json()
-    assert json_data["status"] == "healthy"
-    assert "checks" in json_data
-    assert "database" in json_data["checks"]
-    assert "redis" in json_data["checks"]
+    assert json_data["status"] == "ready"
+    assert json_data["checks"] == {"database": "configured", "redis": "configured"}
+
+
+@pytest.mark.parametrize("missing", ["DATABASE_URL", "REDIS_URL"])
+def test_health_rejects_missing_config(client, monkeypatch, missing):
+    monkeypatch.setenv("DATABASE_URL", "postgresql://example.invalid/checkout")
+    monkeypatch.setenv("REDIS_URL", "redis://example.invalid:6379/0")
+    monkeypatch.delenv(missing)
+    rv = client.get("/health")
+    assert rv.status_code == 503
+    assert rv.get_json()["status"] == "not_ready"

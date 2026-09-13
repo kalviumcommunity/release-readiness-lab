@@ -10,6 +10,17 @@ echo "============================================="
 echo "Checking namespace..."
 kubectl get namespace checkout-system || kubectl create namespace checkout-system
 
+# Secrets are provisioned by the operations team; never commit their values.
+echo "Checking required dependency Secret and keys..."
+kubectl get secret checkout-api-dependencies -n checkout-system >/dev/null
+for key in DATABASE_URL REDIS_URL; do
+  value="$(kubectl get secret checkout-api-dependencies -n checkout-system -o "jsonpath={.data.$key}")"
+  if [ -z "$value" ]; then
+    echo "Missing required key $key in checkout-api-dependencies" >&2
+    exit 1
+  fi
+done
+
 # Apply manifests
 echo "Applying Kubernetes manifests..."
 kubectl apply -f k8s/configmap.yaml

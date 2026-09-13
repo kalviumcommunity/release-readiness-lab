@@ -17,7 +17,7 @@ graph TD
 ## System Requirements
 
 - **Python Version**: 3.11
-- **Primary Framework**: Flask 3.0.2
+- **Primary Framework**: Flask 3.1.3
 - **Production Server**: Gunicorn 22.0.0
 - **External Dependencies**:
   - PostgreSQL (via `DATABASE_URL` environment variable)
@@ -30,6 +30,11 @@ The application reads configurations from the environment:
 - `LOG_LEVEL`: Log level (e.g., debug, info, warning, error)
 - `DATABASE_URL`: Connection string to PostgreSQL
 - `REDIS_URL`: Connection string to Redis Cache
+
+`DATABASE_URL` and `REDIS_URL` are required secret-backed settings. `/health`
+returns HTTP 503 when either is absent. A 200 response establishes only that
+both settings are present; it does not prove PostgreSQL or Redis connectivity.
+Production sign-off therefore also requires an in-cluster dependency check.
 
 ## Release History
 

@@ -1,0 +1,21 @@
+Audit date (local): 2026-09-13T21:50:49.0782515+05:30
+Source commit: ebe39e6cd8a2bb4c18e9893e7c0d4344ca925227
+
+$ .\.venv\Scripts\python.exe --version
+Python 3.11.0
+exit=0
+
+$ .\.venv\Scripts\python.exe -m py_compile app\app.py app\test_app.py
+exit=0
+
+$ .\.venv\Scripts\python.exe -m pytest app\test_app.py -q
+....                                                                     [100%]
+4 passed in 0.11s
+exit=0
+
+$ .\.venv\Scripts\python.exe -m pip check
+No broken requirements found.
+exit=0
+
+Manifest parse and required references: 3 manifests parse; required Secret keys configured (PyYAML 6.0.3, verified separately)
+Dependency scan: No known vulnerabilities found (pip-audit 2.10.1, verified separately)

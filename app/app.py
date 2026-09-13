@@ -27,28 +27,24 @@ def health():
     db_url = os.getenv("DATABASE_URL")
     redis_url = os.getenv("REDIS_URL")
     
-    # Check dependencies. 
-    # Operational risk check: If DATABASE_URL is not set, use fallback in-memory SQLite (unstable for prod)
+    # This endpoint verifies configuration presence, not live dependency connectivity.
     if db_url:
-        db_status = "connected"
-        logger.info("Database status: CONNECTED")
+        db_status = "configured"
     else:
-        db_status = "warning_fallback_sqlite"
-        logger.warning("DATABASE_URL is not set! Using unstable, volatile in-memory SQLite fallback.")
+        db_status = "missing"
+        logger.error("DATABASE_URL is not set; checkout-api is not ready.")
 
-    # Check cache dependency.
-    # Operational risk check: If REDIS_URL is not set, use local in-memory dict cache (non-distributed)
     if redis_url:
-        redis_status = "connected"
-        logger.info("Redis cache status: CONNECTED")
+        redis_status = "configured"
     else:
-        redis_status = "warning_fallback_local"
-        logger.warning("REDIS_URL is not set! Using volatile local in-memory dict cache fallback.")
+        redis_status = "missing"
+        logger.error("REDIS_URL is not set; checkout-api is not ready.")
 
-    status_code = 200
+    ready = bool(db_url and redis_url)
+    status_code = 200 if ready else 503
     
     return jsonify({
-        "status": "healthy",
+        "status": "ready" if ready else "not_ready",
         "version": VERSION,
         "checks": {
             "database": db_status,
